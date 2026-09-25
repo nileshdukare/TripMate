@@ -55,3 +55,7 @@ The service worker uses versioned caching and `no-cache` response headers for `/
 The app stores profile, checklist and saved-trip data in browser `localStorage`. That is device/browser-specific and is not a shared cloud account system.
 
 External map/routing services can impose their own usage limits and terms. The project should not be represented as providing live hotel, fuel, weather, toll or booking data unless the relevant production data sources are connected.
+## Vercel Node.js version
+
+This project pins Node.js 24.x in package.json and .nvmrc because the current Vite 8 toolchain requires a modern Node.js release. Vercel should use the pinned version automatically; if the dashboard has a conflicting Node.js setting, set Project Settings → Build and Deployment → Node.js Version to 24.x.
+
