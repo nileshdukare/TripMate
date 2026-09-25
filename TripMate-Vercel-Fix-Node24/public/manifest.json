@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "short_name": "TripMate",
+  "name": "TripMate — Smart Road Trip & Route Planner",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "background_color": "#f8fafc",
+  "theme_color": "#16a34a",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "description": "All-in-one smart travel planning, interactive road routes, EV charging, highway hotels, food stops, sightseeing, safety and budget planning.",
+  "categories": ["travel", "navigation", "lifestyle"]
+}
