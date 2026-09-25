@@ -21,10 +21,10 @@ export default function AdminDashboard() {
   const apis = [
     { name: "Routing & Multi-point Maps API", provider: "OpenStreetMap / Leaflet Service", calls: "84,200", latency: "42 ms", status: "Healthy" },
     { name: "Global Geocoding & Autocomplete", provider: "Nominatim / Photon Gateway", calls: "45,100", latency: "58 ms", status: "Healthy" },
-    { name: "Live Weather & Highway Advisory", provider: "OpenWeatherMap V3 Enterprise", calls: "22,400", latency: "74 ms", status: "Healthy" },
-    { name: "National Fuel & EV Station Network", provider: "IOCL / BPCL / ChargePoint Feed", calls: "19,800", latency: "65 ms", status: "Healthy" },
-    { name: "National Highway FASTag Toll Engine", provider: "IHMCL / NHAI Toll Matrix API", calls: "14,200", latency: "89 ms", status: "Healthy" },
-    { name: "AI Itinerary LLM Engine", provider: "TripMate Agent Copilot Model", calls: "8,920", latency: "310 ms", status: "Operational" }
+    { name: "Weather & Highway Advisory (demo)", provider: "Not connected", calls: "—", latency: "—", status: "Demo" },
+    { name: "Fuel & EV Station Network (demo)", provider: "Not connected", calls: "—", latency: "—", status: "Demo" },
+    { name: "FASTag Toll Engine (demo)", provider: "Not connected", calls: "—", latency: "—", status: "Demo" },
+    { name: "AI Itinerary Engine (demo rules)", provider: "Local rule-based assistant", calls: "—", latency: "—", status: "Demo" }
   ];
 
   const feedbackList = [
@@ -35,6 +35,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
+      <div className="bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl px-4 py-3 text-xs font-medium">Admin dashboard currently shows demo/sample metrics. Connect authentication, analytics and server telemetry before using these numbers operationally.</div>
       {/* Header */}
       <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>

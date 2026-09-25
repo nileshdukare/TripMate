@@ -62,15 +62,25 @@ export default function InteractiveMap() {
 
     async function loadLiveRoute() {
       if (!startCoord || !endCoord) return;
-      setIsLoadingLiveRoute(true);
 
+      // Only Route 1 is sourced from live OSRM. Alternate routes in the
+      // current demo dataset are estimates, so do not overwrite them with
+      // the same primary OSRM geometry when the user switches routes.
+      if (activeRouteIndex !== 0) {
+        setActiveCoordinates(activeRoute?.coordinates || [startCoord, endCoord]);
+        setLiveSteps([]);
+        setLiveRouteLoaded(false);
+        setIsLoadingLiveRoute(false);
+        return;
+      }
+
+      setIsLoadingLiveRoute(true);
       const res = await fetchLiveOSRMRoute(startCoord, endCoord);
       if (!isCancelled && res && res.success && res.coordinates?.length > 0) {
         setActiveCoordinates(res.coordinates);
         setLiveSteps(res.steps || []);
         setLiveRouteLoaded(true);
       } else if (!isCancelled) {
-        // Fallback to pre-configured realistic waypoints
         setActiveCoordinates(activeRoute?.coordinates || [startCoord, endCoord]);
         setLiveRouteLoaded(false);
       }
@@ -197,18 +207,11 @@ export default function InteractiveMap() {
         }
       },
       (err) => {
-        // Fallback demo location near departure city
-        const fallback = [startCoord[0] + 0.05, startCoord[1] + 0.04];
-        setUserLoc(fallback);
-        const map = mapInstanceRef.current;
-        if (map) {
-          if (userMarkerRef.current) map.removeLayer(userMarkerRef.current);
-          userMarkerRef.current = L.marker(fallback, {
-            icon: createCustomIcon('user')
-          }).addTo(map);
-          map.flyTo(fallback, 11);
-        }
-        showToast("GPS position set to departure transit corridor.", "info");
+        setUserLoc(null);
+        const message = err?.code === 1
+          ? "Location access was denied. Allow location permission and try again."
+          : "Could not determine your live GPS location. Please try again.";
+        showToast(message, "error");
       },
       { timeout: 8000 }
     );

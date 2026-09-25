@@ -186,7 +186,7 @@ export default function FuelChargingSection() {
           Smart Recommended Refueling Schedule
         </h4>
         <p className="text-xs text-slate-500">
-          TripMate automatically plans stops before your {isEV ? "battery drops below 20%" : "fuel drops below 25%"}, prioritizing verified highway stations with clean restrooms and dining.
+          TripMate automatically plans stops before your {isEV ? "battery drops below 20%" : "fuel drops below 25%"}, using the current demo station dataset; verify availability before travel.
         </p>
 
         <div className="space-y-3">
@@ -230,7 +230,7 @@ export default function FuelChargingSection() {
       <div className="space-y-4">
         <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
           <MapPin className="w-4 h-4 text-brand-600" />
-          Verified Highway Stations Along Route
+          Demo Fuel & Charging Stations Along Route
         </h4>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -264,7 +264,7 @@ export default function FuelChargingSection() {
                       Speed: <strong>{st.evCharging.speed}</strong> • Est. Charge Time: <strong>{st.evCharging.estimatedChargeTime}</strong>
                     </div>
                     <div className="text-[11px] text-emerald-600 font-medium">
-                      Status: {st.evCharging.availablePorts} of {st.evCharging.ports} charging guns currently free
+                      Demo status: {st.evCharging.availablePorts} of {st.evCharging.ports} ports shown as available
                     </div>
                   </div>
                 )}

@@ -43,7 +43,7 @@ export default function BookingModal() {
         <div className="p-5 bg-slate-900 text-white flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Hotel className="w-5 h-5 text-brand-400" />
-            <h3 className="font-extrabold text-base">Direct Hotel Reservation</h3>
+            <h3 className="font-extrabold text-base">Hotel Booking Preview</h3>
           </div>
           <button
             onClick={() => setSelectedHotelForBooking(null)}
@@ -58,12 +58,12 @@ export default function BookingModal() {
             <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl">
               ✓
             </div>
-            <h4 className="text-xl font-black text-slate-900">Booking Confirmed!</h4>
+            <h4 className="text-xl font-black text-slate-900">Demo Reservation Created</h4>
             <p className="text-xs text-slate-500 max-w-xs mx-auto">
-              Your reservation at <strong>{h.name}</strong> has been secured and integrated into your daily itinerary.
+              A demo reservation summary was created for <strong>{h.name}</strong>. No real hotel booking or payment was processed.
             </p>
             <div className="p-3 bg-slate-50 rounded-xl text-xs font-mono text-slate-600">
-              Confirmation PIN: #TM-{Math.floor(100000 + Math.random() * 900000)}
+              Demo Reference: #TM-{Math.floor(100000 + Math.random() * 900000)}
             </div>
           </div>
         ) : (
@@ -156,6 +156,10 @@ export default function BookingModal() {
               <span>{h.cancellation || "Free cancellation up to 24 hours before check-in"}</span>
             </div>
 
+            <div className="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
+              Demo only: connect a hotel booking provider before accepting real reservations or payments.
+            </div>
+
             {/* Submit */}
             <div className="pt-2 flex items-center justify-end gap-2">
               <button
@@ -169,7 +173,7 @@ export default function BookingModal() {
                 type="submit"
                 className="px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold shadow-md shadow-brand-600/20 transition flex items-center gap-1.5"
               >
-                Confirm & Pay at Hotel
+                Create Demo Reservation
               </button>
             </div>
           </form>

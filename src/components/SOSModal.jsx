@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTrip } from '../context/TripContext';
 import { 
   X, ShieldAlert, Phone, MapPin, Share2, 
@@ -8,22 +8,47 @@ import {
 export default function SOSModal({ isOpen, onClose }) {
   const { currentTrip, showToast } = useTrip();
   const [copiedCoords, setCopiedCoords] = useState(false);
+  const [gpsCoords, setGpsCoords] = useState(null);
+  const [gpsStatus, setGpsStatus] = useState('idle');
+
+  useEffect(() => {
+    if (!isOpen || !currentTrip) return;
+    setGpsCoords(null);
+    setGpsStatus('requesting');
+    if (!navigator.geolocation) {
+      setGpsStatus('unsupported');
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setGpsCoords([pos.coords.latitude, pos.coords.longitude]);
+        setGpsStatus('ready');
+      },
+      () => setGpsStatus('unavailable'),
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+    );
+  }, [isOpen, currentTrip?.id]);
 
   if (!isOpen || !currentTrip) return null;
 
-  const currentCoords = currentTrip.fromCoords || [19.0760, 72.8777];
-  const coordString = `${currentCoords[0].toFixed(4)}° N, ${currentCoords[1].toFixed(4)}° E`;
+  const coordString = gpsCoords
+    ? `${gpsCoords[0].toFixed(5)}° N, ${gpsCoords[1].toFixed(5)}° E`
+    : 'Live GPS unavailable';
 
   const emergencyMessage = `🚨 EMERGENCY SOS ALERT: Need immediate roadside assistance on route between ${currentTrip.from} and ${currentTrip.to}. My GPS location: ${coordString}. Vehicle: ${currentTrip.vehicleDetails?.type}. Please call back immediately.`;
 
   const handleCopyCoords = () => {
-    navigator.clipboard.writeText(coordString);
+    navigator.clipboard?.writeText(coordString);
     setCopiedCoords(true);
     showToast("GPS coordinates copied to clipboard!", "success");
     setTimeout(() => setCopiedCoords(false), 2500);
   };
 
   const handleSendSOSMsg = () => {
+    if (!gpsCoords) {
+      showToast('Live GPS is unavailable. Acquire your location before sending an SOS message.', 'error');
+      return;
+    }
     const encoded = encodeURIComponent(emergencyMessage);
     window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
   };
@@ -56,8 +81,11 @@ export default function SOSModal({ isOpen, onClose }) {
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-rose-600" />
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-500 block">Current Highway Position</span>
+                <span className="text-[10px] uppercase font-bold text-slate-500 block">Current GPS Position</span>
                 <span className="font-extrabold text-slate-900">{coordString}</span>
+                <span className="block text-[10px] text-slate-500 mt-0.5">
+                  {gpsStatus === 'ready' ? 'Live browser location acquired.' : gpsStatus === 'requesting' ? 'Requesting location permission…' : 'No live location was acquired.'}
+                </span>
               </div>
             </div>
             <button
@@ -115,7 +143,7 @@ export default function SOSModal({ isOpen, onClose }) {
               className="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition"
             >
               <Send className="w-4 h-4" />
-              Broadcast Emergency Alert with GPS on WhatsApp
+              {gpsCoords ? 'Broadcast Emergency Alert with GPS on WhatsApp' : 'Get Live GPS Before WhatsApp SOS'}
             </button>
           </div>
 

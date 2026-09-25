@@ -203,7 +203,7 @@ export default function RouteAnalysis() {
                 {ra.mealBreaksRecommended} Highway Food Stops (45 min)
               </div>
               <p className="text-[11px] text-orange-800/80 mt-1">
-                Carefully mapped at verified food plazas with clean washrooms and ample parking.
+                Food-stop descriptions are from the current demo dataset; verify facilities before travel.
               </p>
             </div>
           </div>

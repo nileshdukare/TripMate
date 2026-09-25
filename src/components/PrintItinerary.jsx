@@ -67,7 +67,7 @@ export default function PrintItinerary() {
           </div>
           <div className="text-right">
             <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
-              Verified Itinerary
+              Trip Plan — Verify Live Details Before Travel
             </span>
           </div>
         </div>

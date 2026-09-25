@@ -165,6 +165,13 @@ export function generateCustomTripPlan({
   const tollCountRoundTrip = tollCountOneWay * 2;
   const tollCostRoundTrip = tollCostOneWay * 2;
 
+  // Canonical values used by the custom-plan return object.
+  // Keep these aligned with the round-trip totals used by the budget.
+  const fuelRequired = fuelRequiredRoundTrip;
+  const fuelCost = fuelCostRoundTrip;
+  const tollCount = tollCountRoundTrip;
+  const tollCost = tollCostRoundTrip;
+
   // Warning check
   let drivingWarning = null;
   if ((travelMode === "Car" || travelMode === "Bike") && estimatedKm > 550 && days <= 2) {
@@ -443,8 +450,21 @@ export function generateCustomTripPlan({
         fuelCost: Math.round(fuelCost * 1.08),
         badge: "Scenic Detour",
         scenicAttractions: 7,
-        description: "Takes pleasant state bypass roads with scenic mountain passes, river crossings, and lush green rural vistas.",
+        description: "Estimated scenic alternative; exact roads and points of interest should be verified with live routing data.",
         coordinates: routeCoords.map(([lat, lng]) => [lat + 0.12, lng - 0.08])
+      },
+      {
+        id: "route-budget",
+        name: "Route 3 — Lower Toll Estimate",
+        distance: Math.round(estimatedKm * 1.04),
+        time: `${hours} hr ${minutes + 35} min`,
+        tolls: Math.max(1, tollCount - 4),
+        tollCost: Math.round(tollCost * 0.35),
+        fuelRequired: Number((fuelRequired * 1.04).toFixed(1)),
+        fuelCost: Math.round(fuelCost * 1.04),
+        badge: "Lower Toll Estimate",
+        description: "Estimated lower-toll alternative; exact tolls and road choices require live route/toll data.",
+        coordinates: routeCoords.map(([lat, lng]) => [lat - 0.08, lng + 0.06])
       }
     ],
     routeAnalysis: {
@@ -644,9 +664,9 @@ export function generateCustomTripPlan({
     ],
     budget,
     weather: [
-      { day: "Day 1", location: `${from} to ${to}`, tempHigh: 32, tempLow: 22, condition: "Sunny & Clear", rainProb: 5, wind: "12 km/h W", sunrise: "06:22 AM", sunset: "06:14 PM", advisory: "Optimal driving conditions." },
-      { day: "Day 2", location: to, tempHigh: 31, tempLow: 21, condition: "Partly Cloudy", rainProb: 15, wind: "14 km/h SW", sunrise: "06:23 AM", sunset: "06:13 PM", advisory: "Pleasant evening temperatures." },
-      { day: "Day 3", location: `${to} & Return`, tempHigh: 33, tempLow: 22, condition: "Clear Sky", rainProb: 10, wind: "10 km/h NW", sunrise: "06:24 AM", sunset: "06:12 PM", advisory: "Smooth highway return trip." }
+      { day: "Day 1", location: `${from} to ${to}`, tempHigh: 32, tempLow: 22, condition: "Estimated / Demo", rainProb: null, wind: "Demo value", sunrise: "Demo value", sunset: "Demo value", advisory: "Not a live forecast. Connect a weather API before relying on this information." },
+      { day: "Day 2", location: to, tempHigh: 31, tempLow: 21, condition: "Estimated / Demo", rainProb: null, wind: "Demo value", sunrise: "Demo value", sunset: "Demo value", advisory: "Not a live forecast. Connect a weather API before relying on this information." },
+      { day: "Day 3", location: `${to} & Return`, tempHigh: 33, tempLow: 22, condition: "Estimated / Demo", rainProb: null, wind: "Demo value", sunrise: "Demo value", sunset: "Demo value", advisory: "Not a live forecast. Connect a weather API before relying on this information." }
     ],
     safetyEmergency: {
       sosNumbers: [

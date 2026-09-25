@@ -65,7 +65,7 @@ export default function AITravelAssistant() {
 
     if (q.includes("lunch") || q.includes("food") || q.includes("eat")) {
       const rest = currentTrip.restaurants?.[0] || { name: "Highway Oasis", approxCost: "₹250/person", popularDishes: ["Thali", "Tea"] };
-      replyText = `Based on your route timing, you will reach the midway marker around 1:00 PM - 1:30 PM. I recommend stopping at **${rest.name}** (${rest.cuisine || 'Highway Family Restaurant'}). They have verified clean washrooms, spacious parking, and top-rated dishes like ${rest.popularDishes ? rest.popularDishes.slice(0, 2).join(', ') : 'fresh thali'}.`;
+      replyText = `Based on your route timing, you will reach the midway marker around 1:00 PM - 1:30 PM. I recommend stopping at **${rest.name}** (${rest.cuisine || 'Highway Family Restaurant'}). The demo listing includes clean-washroom, parking and dish details such as ${rest.popularDishes ? rest.popularDishes.slice(0, 2).join(', ') : 'fresh thali'}.`;
     } else if (q.includes("less tiring") || q.includes("reduce driving") || q.includes("relax")) {
       replyText = `I've optimized Day 2 to reduce driving and pace out activities. I moved the morning wake-up to 9:00 AM, shifted outdoor sightseeing to the late afternoon breeze, and added a tranquil poolside/spa siesta.`;
       action = {

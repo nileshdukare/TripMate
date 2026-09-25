@@ -24,9 +24,9 @@ export default function WeatherSection() {
               Multi-day meteorological forecast covering departure highway, mountain ghats, and destination coast/valleys.
             </p>
           </div>
-          <span className="self-start md:self-auto px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            Highway Safe for Driving
+          <span className="self-start md:self-auto px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5">
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+            Forecast estimate — verify before travel
           </span>
         </div>
 
@@ -67,7 +67,7 @@ export default function WeatherSection() {
                 <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-2 border-t border-slate-200/60">
                   <div className="flex items-center gap-1.5">
                     <CloudRain className="w-3.5 h-3.5 text-sky-500" />
-                    <span>Rain: {w.rainProb}%</span>
+                    <span>Rain: {w.rainProb == null ? 'Unavailable' : `${w.rainProb}%`}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Wind className="w-3.5 h-3.5 text-slate-400" />

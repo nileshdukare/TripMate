@@ -57,6 +57,9 @@ export default function HeroSection() {
         <p className="text-sm md:text-lg text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
           Routes, hotels, fuel stops, sightseeing, food, budget and more — all in one unified, interactive dashboard.
         </p>
+        <div className="mx-auto max-w-xl rounded-xl border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-[11px] text-amber-100">
+          Demo mode: some hotel, fuel, attraction, weather, toll and traffic details are estimates until live providers are connected.
+        </div>
 
         {/* Hero CTAs */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
